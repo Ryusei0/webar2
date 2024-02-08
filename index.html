@@ -1,18 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-    <title>WebAR GLTF Model Example</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebAR GLTF Model Example with Input</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-    <!-- animation-mixerコンポーネントを含むA-Frame Extrasを追加 -->
     <script src="https://cdn.jsdelivr.net/npm/aframe-extras/dist/aframe-extras.min.js"></script>
+    <style>
+        body { margin: 0px; overflow: hidden; }
+        #inputContainer { position: absolute; top: 10px; left: 10px; z-index: 999; }
+        #responseContainer { 
+            position: absolute; top: 50px; left: 10px; z-index: 999;
+            background: #fff; padding: 10px; border-radius: 5px;
+            max-width: calc(100% - 20px);
+        }
+    </style>
 </head>
-<body style="margin : 0px; overflow: hidden;">
+<body>
+    <div id="inputContainer">
+        <input type="text" id="userInput" placeholder="テキストを入力...">
+        <button onclick="sendInput()">送信</button>
+    </div>
+    <div id="responseContainer">応答がここに表示されます。</div>
+    
     <a-scene embedded arjs='sourceType: webcam;'>
         <a-marker preset="hiro">
-            <!-- animation-mixerコンポーネントを使用してGLTFモデルのアニメーションを再生 -->
             <a-entity gltf-model="https://s3.ap-northeast-3.amazonaws.com/testunity1.0/webar/test.gltf" 
                       position="0 0 0" 
                       scale="0.01 0.01 0.01" 
@@ -21,5 +34,29 @@
         </a-marker>
         <a-entity camera></a-entity>
     </a-scene>
+
+    <script>
+        function sendInput() {
+            var userInput = document.getElementById('userInput').value;
+            var responseContainer = document.getElementById('responseContainer');
+
+            fetch('https://webchat-yghl.onrender.com/submit-query', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({input_text: userInput})
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                responseContainer.textContent = '応答: ' + data.response; // 応答をページに表示
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                responseContainer.textContent = 'エラーが発生しました。'; // エラーをページに表示
+            });
+        }
+    </script>
 </body>
 </html>
