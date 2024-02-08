@@ -26,6 +26,7 @@
         </a-marker>
         <a-entity camera></a-entity>
     </a-scene>
+    <button id="toggleResponse" onclick="toggleResponse()">返答を表示</button>
 
     <script>
         function sendInput() {
@@ -49,6 +50,17 @@
                 responseContainer.textContent = 'エラーが発生しました。'; // エラーをページに表示
             });
         }
+        function toggleResponse() {
+        var responseContainer = document.getElementById('responseContainer');
+        var toggleButton = document.getElementById('toggleResponse');
+        if (responseContainer.style.display === 'none') {
+            responseContainer.style.display = 'block';
+            toggleButton.textContent = '返答を隠す';
+        } else {
+            responseContainer.style.display = 'none';
+            toggleButton.textContent = '返答を表示';
+        }
+    }
     </script>
 </body>
 </html>
