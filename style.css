@@ -1,0 +1,50 @@
+body {
+    margin: 0px;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+#inputContainer {
+    position: fixed; /* モバイルデバイスとデスクトップで一貫した振る舞い */
+    bottom: 20px; /* 画面の下から少し上に */
+    left: 50%;
+    transform: translateX(-50%); /* 水平方向の中央揃え */
+    z-index: 999;
+    display: flex;
+    flex-direction: row; /* 横並び */
+    align-items: center;
+    background: #f9f9f9; /* 軽い背景色 */
+    padding: 10px;
+    border-radius: 20px; /* 角を丸く */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 影をつける */
+}
+#userInput {
+    flex: 1; /* 残りのスペースをすべて使う */
+    margin-right: 10px; /* ボタンとの間隔 */
+    padding: 10px;
+    border: 1px solid #ddd; /* 軽い境界線 */
+    border-radius: 15px; /* 入力フィールドの角を丸く */
+}
+button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff; /* ボタンの背景色 */
+    color: #ffffff; /* ボタンのテキスト色 */
+    border-radius: 15px; /* ボタンの角を丸く */
+    cursor: pointer; /* ホバー時のカーソル変更 */
+}
+button:hover {
+    background-color: #0056b3; /* ホバー時の背景色変更 */
+}
+#responseContainer {
+    position: fixed; /* モバイルデバイスとデスクトップで一貫した振る舞い */
+    bottom: 70px; /* テキスト入力コンテナの上 */
+    left: 50%;
+    transform: translateX(-50%); /* 水平方向の中央揃え */
+    z-index: 999;
+    background: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    max-width: calc(100% - 40px); /* 両側の余白を確保 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 影をつける */
+    font-size: 0.9rem;
+}
