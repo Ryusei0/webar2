@@ -94,3 +94,10 @@ button:hover {
         padding: 8px 16px;
     }
 }
+
+#videoButtons {
+    position: absolute; /* z-indexを適用するためには、positionがstatic以外である必要があります */
+    z-index: 999; /* 高い値を設定して前面に表示 */
+    top: 10px; /* 画面の上部からの位置 */
+    left: 10px; /* 画面の左側からの位置 */
+}

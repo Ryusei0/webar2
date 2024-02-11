@@ -10,25 +10,64 @@
     <link rel="stylesheet" href="style.css"> <!-- CSSファイルへのリンク -->
 </head>
 <body>
+    <div id="videoButtons"></div> <!-- 動画ボタンを追加するコンテナ -->
+
     <div id="inputContainer">
         <input type="text" id="userInput" placeholder="テキストを入力...">
         <button onclick="sendInput()">送信</button>
     </div>
+
     <div id="responseContainer">応答がここに表示されます。</div>
     
     <a-scene embedded arjs='sourceType: webcam;'>
+        <a-assets>
+            <video id="my-video" src="" loop muted></video>
+        </a-assets>
+
         <a-marker preset="hiro">
-            <a-entity gltf-model="https://s3.ap-northeast-3.amazonaws.com/testunity1.0/webar/test.gltf" 
+            <a-entity gltf-model="https://s3.ap-northeast-3.amazonaws.com/testunity1.0/webar/nMstand.gltf" 
                       position="0 0 0" 
                       scale="0.01 0.01 0.01" 
                       animation-mixer>
             </a-entity>
+            <a-video src="#my-video" width="1.5" height="0.75" position="0 1 -1.5" rotation="0 0 0"></a-video>
         </a-marker>
         <a-entity camera></a-entity>
     </a-scene>
+
     <button id="toggleResponse" onclick="toggleResponse()">返答を表示</button>
 
     <script>
+
+        var videos = [
+            { name: "ビデオ1", url: "https://s3.ap-northeast-3.amazonaws.com/testunity1.0/videos/1.mp4" },
+            { name: "ビデオ2", url: "https://s3.ap-northeast-3.amazonaws.com/testunity1.0/videos/2.mp4" },
+            // 他の動画をここに追加
+        ];
+
+        var videoContainer = document.getElementById('videoButtons');
+
+        videos.forEach(function(video, index) {
+            var button = document.createElement('button');
+            button.textContent = video.name; // ボタンに動画の名前を設定
+            button.onclick = function() {
+                changeVideo(video.url); // ボタンをクリックした時に動画を変更
+            };
+            videoContainer.appendChild(button); // 生成したボタンをコンテナに追加
+        });
+
+        window.onload = function() {
+        // 最初の動画を自動的に読み込む
+        changeVideo(videos[0].url);
+        };
+
+        function changeVideo(url) {
+            var video = document.getElementById('my-video');
+            video.src = url; // 動画ソースを更新
+            video.load(); // 新しいソースで動画を再読み込み
+            video.play(); // 自動再生
+        }
+
         function sendInput() {
             var userInput = document.getElementById('userInput').value;
             var responseContainer = document.getElementById('responseContainer');
@@ -50,6 +89,7 @@
                 responseContainer.textContent = 'エラーが発生しました。'; // エラーをページに表示
             });
         }
+
         function toggleResponse() {
         var responseContainer = document.getElementById('responseContainer');
         var toggleButton = document.getElementById('toggleResponse');
@@ -60,7 +100,8 @@
             responseContainer.style.display = 'none';
             toggleButton.textContent = '返答を表示';
         }
-    }
+        }
+    
     </script>
 </body>
 </html>
