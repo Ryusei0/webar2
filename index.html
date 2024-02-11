@@ -19,7 +19,7 @@
 
     <div id="responseContainer">応答がここに表示されます。</div>
     
-    <a-scene embedded arjs='sourceType: webcam;'>
+    <a-scene embedded arjs='sourceType: webcam; sourceWidth: 1980; sourceHeight: 1080; debugUIEnabled: false;'>
         <a-assets>
             <video id="my-video" src="" loop muted></video>
         </a-assets>
@@ -38,7 +38,6 @@
     <button id="toggleResponse" onclick="toggleResponse()">返答を表示</button>
 
     <script>
-
         var videos = [
             { name: "ビデオ1", url: "https://s3.ap-northeast-3.amazonaws.com/testunity1.0/videos/1.mp4" },
             { name: "ビデオ2", url: "https://s3.ap-northeast-3.amazonaws.com/testunity1.0/videos/2.mp4" },
@@ -57,8 +56,8 @@
         });
 
         window.onload = function() {
-        // 最初の動画を自動的に読み込む
-        changeVideo(videos[0].url);
+            // 最初の動画を自動的に読み込む
+            changeVideo(videos[0].url);
         };
 
         function changeVideo(url) {
@@ -91,17 +90,17 @@
         }
 
         function toggleResponse() {
-        var responseContainer = document.getElementById('responseContainer');
-        var toggleButton = document.getElementById('toggleResponse');
-        if (responseContainer.style.display === 'none') {
-            responseContainer.style.display = 'block';
-            toggleButton.textContent = '返答を隠す';
-        } else {
-            responseContainer.style.display = 'none';
-            toggleButton.textContent = '返答を表示';
+            var responseContainer = document.getElementById('responseContainer');
+            var toggleButton = document.getElementById('toggleResponse');
+            if (responseContainer.style.display === 'none') {
+                responseContainer.style.display = 'block';
+                toggleButton.textContent = '返答を隠す';
+            } else {
+                responseContainer.style.display = 'none';
+                toggleButton.textContent = '返答を表示';
+            }
         }
-        }
-    
     </script>
 </body>
 </html>
+
